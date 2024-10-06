@@ -1,0 +1,125 @@
+.filters-main {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+}
+
+#filters {
+    display: flex;
+    width: 100%;
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
+    align-items: center;
+    height: 90px;
+    position: relative;
+    margin: 10px 0; /* Adjusted margin for top and bottom spacing */
+    padding: 0 10px; /* Added padding to the left and right */
+}
+
+#filters > .filter {
+    margin: 0 1rem; /* Added horizontal margin between filters */
+    text-align: center; /* Center text for better alignment */
+}
+
+#filters > .filter > div {
+    font-size: 1.5rem; /* Increased icon size for better visibility */
+    margin-bottom: 5px; /* Space between icon and text */
+}
+
+@media (max-width: 768px) {
+    #filters > .filter {
+        margin: 0 0.75rem; /* Adjust margin for smaller screens */
+    }
+}
+
+@media (max-width: 425px) {
+    #filters > .filter {
+        margin: 0 0.5rem; /* Further adjustment for very small screens */
+    }
+}
+
+.tax-toggle {
+    border: 0.5px solid rgba(128, 128, 128, 0.5);
+    border-radius: 12px;
+    height: 3rem;
+    min-width: 300px;
+    width: fit-content !important;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    font-weight: 500;
+    margin-left: auto; /* Align tax toggle to the right */
+    margin-top: 10px; /* Add spacing from filters */
+}
+
+.tax-toggle:hover {
+    border: 1px solid black;
+}
+
+/* Keep existing styles for other classes */
+.filter {
+    text-align: center;
+    opacity: 0.6;
+    transition: 150ms ease-in-out all;
+}
+
+.filter:hover {
+    opacity: 1 !important;
+    border-bottom: 2.5px solid rgba(66, 63, 63, 0.679) !important;
+    transform: scale(1.05) !important;
+    transition: 150ms ease all;
+}
+
+.selectedFilter {
+    opacity: 1;
+    border-bottom: 2.5px solid #000;
+}
+
+.tax-info {
+    display: none;
+}
+
+.tax-filter-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* Center icons */
+}
+
+.filter > p {
+    white-space: nowrap; /* Prevent text wrapping */
+    font-weight: 600;
+    font-size: 0.9rem; /* Slightly larger font size for better readability */
+    color: black;
+    margin: 0; /* Remove default margin */
+}
+
+/* Additional Responsive Styles */
+@media (max-width: 767px) {
+    .tax-toggle {
+        display: block;
+        position: sticky;
+        top: calc(8rem - 0.5px);
+        z-index: 15;
+        margin: 10px auto; /* Center tax toggle */
+        padding: 0.6rem; /* Padding for tax toggle */
+        border: 0.5px solid rgba(128, 128, 128, 0.703);
+    }
+    .tax-filter {
+        display: none;
+    }
+
+    .tax-filter-icon {
+        display: none;
+    }
+
+    .tax-filter-icon-small {
+        min-width: 35px;
+        padding-left: 18px;
+        padding-top: 12px;
+        margin: 25px 0px !important;
+        display: block;
+    }
+}

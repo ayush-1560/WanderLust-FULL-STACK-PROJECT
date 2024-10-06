@@ -1,53 +1,57 @@
-<style>
-  .btn-search{
-    background-color: #fe424d;
-    color: white;
-    border-radius: 25px;
-    padding: 0 1rem 0 1rem;
-  }
-  .btn-search:hover{
-    background-color: #fe424d;
-    color: white;
-  }
+<link rel="stylesheet" href="/css/navbar.css">
 
-  .btn-search i {
-    display: inline;
-    margin-right: 0.5rem;
-  }
+<nav class="navbar navbar-expand-md border-bottom sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
 
-  .search-inp{
-    border-radius: 25px;
-    padding: 0.5rem 3rem 0.5rem 3 rem;
-    font-size: 1rem;
-  }
-</style>
+    <!-- Toggle Button for Mobile View -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link" href="/listings">Explore</a>
-        </div>
-        <div class="navbar-nav ms-auto">
-          <form class="d-flex" role="search">
-            <input class="form-control me-2 search-inp" type="search" placeholder="Search destination">
-            <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
-          </form>
-        </div>
-        <div class="navbar-nav ms-auto">
-          <a class="nav-link" href="/listings/new">Add New Listing</a>
-          <% if(!currUser) { %>
-          <a class="nav-link" href="/users/Signup"> <b>SignUp</b></a>
-          <a class="nav-link" href="/users/login"> <b> Login </b></a>
-          <% } %>
-          <% if(currUser) { %>
-          <a class="nav-link" href="/users/logout">Log Out</a>
-          <% } %>
-        </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav me-auto"> <!-- Aligns items to the left -->
+        <a class="nav-link" href="/listings">Explore</a>
+      </div>
+
+      <!-- Centered Search Box -->
+      <div class="navbar-nav center-search">
+        <form class="d-flex" role="search" method="GET" action="/listings/search">
+          <input class="form-control me-2 search-inp" type="text" placeholder="Search destination" name="q" required>
+          <button class="btn btn-primary btn-search" type="submit">Search</button>
+        </form>
+      </div>
+
+      <!-- Button to Open Sidebar -->
+      <div class="navbar-nav ms-auto">
+        <button class="open-btn" onclick="toggleSidebar()">Menu</button>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
+
+<!-- Sidebar -->
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
+  <a href="/listings/new">Add Your Listing</a>
+  <% if (!currUser) { %>
+    <a href="/users/Signup">Sign Up</a>
+    <a href="/users/login">Login</a>
+  <% } %>
+  <% if (currUser) { %>
+    <a href="/users/logout">Log Out</a>
+  <% } %>
+</div>
+
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById("mySidebar");
+    sidebar.classList.toggle("open"); // Toggle 'open' class
+  }
+
+  // Ensure sidebar state is consistent on page load
+  window.onload = function() {
+    const sidebar = document.getElementById("mySidebar");
+    sidebar.classList.remove("open"); // Ensure sidebar is hidden on refresh
+  };
+</script>

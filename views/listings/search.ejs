@@ -1,0 +1,23 @@
+
+<%- include('boilerplate.ejs') %>
+
+<% if (listings.length > 0) { %>
+    <h2>Search Results for "<%= searchQuery %>"</h2>
+    <div class="row">
+        <% listings.forEach(listing => { %>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <img src="<%= listing.image %>" class="card-img-top" alt="<%= listing.title %>">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= listing.title %></h5>
+                        <p class="card-text"><%= listing.description.substring(0, 100) %>...</p>
+                        <a href="/listings/<%= listing._id %>" class="btn btn-primary">View More</a>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+<% } else { %>
+    <h2>No results found for "<%= searchQuery %>"</h2>
+    <p>Try searching with different keywords.</p>
+<% } %>

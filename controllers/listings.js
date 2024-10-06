@@ -73,3 +73,42 @@ module.exports.destroyListing=async (req, res) => {
     req.flash("success","Listing Deleted Successfully!");
     res.redirect("/listings");
 };
+
+module.exports.search = async (req, res) => {
+    try {
+        // Extract and trim the search query, ensure it's a string
+        const input = req.query.q ? req.query.q.trim() : '';
+        console.log("Received Query:", input); // Debug: Check the received query
+
+        if (!input || typeof input !== 'string') {
+            req.flash("error", "Search value cannot be empty or invalid!");
+            return res.redirect("/listings");
+        }
+
+        // Capitalize the first letter of each word
+        const formattedInput = input
+            .split(" ")
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(" ");
+        console.log("Formatted Query:", formattedInput); // Debug: Check the formatted query
+
+        // Perform the search using a valid string in the $regex query
+        const allListing = await Listing.find({
+            title: { $regex: formattedInput, $options: "i" } // Case-insensitive search
+        }).sort({ _id: -1 });
+        console.log("Listings Found:", allListing); // Debug: Check if listings are returned
+
+        if (allListing.length === 0) {
+            req.flash("error", "No listings found with the given title!");
+            return res.redirect("/listings");
+        }
+
+        res.locals.success = "Listings found";
+        res.render("listings/index.ejs", { allListings: allListing });
+    } catch (error) {
+        console.error("Search Error:", error.message); // More detailed error logging
+        req.flash("error", "An error occurred while searching!");
+        res.redirect("/listings");
+    }
+};
+
