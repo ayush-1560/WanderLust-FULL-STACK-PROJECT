@@ -21,6 +21,11 @@
     text-align: center; /* Center text for better alignment */
 }
 
+#filters > .filter > a { /* Make sure the links cover the entire filter area */
+    text-decoration: none; /* Remove underline from links */
+    color: inherit; /* Make link color inherit from parent */
+}
+
 #filters > .filter > div {
     font-size: 1.5rem; /* Increased icon size for better visibility */
     margin-bottom: 5px; /* Space between icon and text */

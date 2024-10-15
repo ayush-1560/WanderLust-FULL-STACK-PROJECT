@@ -39,6 +39,28 @@
                 <input name="listing[location]" placeholder="Enter location" type="text"
                 class="form-control" required>
             </div>
+            <div class="mb-3">
+                <label for="capacity" class="form-label">Capacity</label>
+                <input name="listing[capacity]" placeholder="Enter capacity" type="number"
+                class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select class="form-select" id="category" name="listing[category]" required>
+                    <option value="">Select a category</option>
+                    <option value="Trending">Trending</option>
+                    <option value="Rooms">Rooms</option>
+                    <option value="Iconic Cities">Iconic Cities</option>
+                    <option value="Lakes">Lakes</option>
+                    <option value="Castles">Castles</option>
+                    <option value="Camping">Camping</option>
+                    <option value="Farms">Farms</option>
+                    <option value="Arctic">Arctic</option>
+                    <option value="Domes">Domes</option>
+                    <option value="Boats">Boats</option>
+                </select>
+            </div>
+            
             <div class="invalid-feedback">Location Should be Valid</div>
             <button class="btn btn-dark add-btn mb-3">Add</button>
         </form>  

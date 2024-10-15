@@ -30,4 +30,10 @@ router.put("/:id", isLoggedIn,isOwner,upload.single("listing[image]"),validateLi
 // Delete Route
 router.delete("/:id", isLoggedIn,isOwner,wrapAsync(listingController.destroyListing));
 
+// Booking route to render the booking form
+router.get("/:id/book", wrapAsync(listingController.renderBookingForm)); // Add this line
+
+// Booking route
+router.post("/:id/book", isLoggedIn, wrapAsync(listingController.bookListing));
+
 module.exports=router;

@@ -1,7 +1,16 @@
 const Listing = require("../models/listings");
-const opencage = require('opencage-api-client');
-module.exports.index=async (req, res) => {
-    let allListings = await Listing.find({});
+const Booking = require("../models/booking"); // Import the Booking model
+
+module.exports.index = async (req, res) => {
+    const { category } = req.query; // Get category from query parameters
+    let allListings;
+
+    if (category) {
+        allListings = await Listing.find({ category }); // Filter by category
+    } else {
+        allListings = await Listing.find({});
+    }
+
     res.render("listings/index.ejs", { allListings });
 };
 
@@ -92,14 +101,19 @@ module.exports.search = async (req, res) => {
             .join(" ");
         console.log("Formatted Query:", formattedInput); // Debug: Check the formatted query
 
-        // Perform the search using a valid string in the $regex query
+        // Perform the search across multiple fields (title, description, category)
         const allListing = await Listing.find({
-            title: { $regex: formattedInput, $options: "i" } // Case-insensitive search
+            $or: [
+                { title: { $regex: formattedInput, $options: "i" } }, // Search by title
+                { description: { $regex: formattedInput, $options: "i" } }, // Search by description
+                { category: { $regex: formattedInput, $options: "i" } } // Search by category
+            ]
         }).sort({ _id: -1 });
+
         console.log("Listings Found:", allListing); // Debug: Check if listings are returned
 
         if (allListing.length === 0) {
-            req.flash("error", "No listings found with the given title!");
+            req.flash("error", "No listings found with the given search!");
             return res.redirect("/listings");
         }
 
@@ -110,5 +124,78 @@ module.exports.search = async (req, res) => {
         req.flash("error", "An error occurred while searching!");
         res.redirect("/listings");
     }
+};
+
+module.exports.renderBookingForm = async (req, res) => {
+    const { id } = req.params;
+    const listing = await Listing.findById(id);
+    
+    if (!listing) {
+        req.flash("error", "Listing not found!");
+        return res.redirect("/listings");
+    }
+    
+    res.render("listings/book.ejs", { listing }); // Render the book.ejs with listing details
+};
+
+module.exports.bookListing = async (req, res) => {
+    const { id } = req.params;
+    const { checkIn, checkOut, guests, name, email, phone } = req.body;
+
+    // Basic input validation
+    if (!checkIn || !checkOut || !guests) {
+        return res.redirect(`/listings/${id}/book`);
+    }
+
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
+
+    if (checkInDate >= checkOutDate) {
+        req.flash("error", "Check-out date must be after check-in date.");
+        return res.redirect(`/listings/${id}/book`);
+    }
+
+    if (guests < 1) {
+        req.flash("error", "Number of guests must be at least 1.");
+        return res.redirect(`/listings/${id}/book`);
+    }
+
+    // Check for overlapping bookings
+    const existingBookings = await Booking.find({
+        listing: id,
+        $or: [
+            { checkIn: { $lt: checkOutDate }, checkOut: { $gt: checkInDate } } // Overlap condition
+        ]
+    });
+
+    if (existingBookings.length > 0) {
+        req.flash("error", "The listing is not available for the selected dates.");
+        return res.redirect(`/listings/${id}/book`);
+    }
+
+    // Validate guest count against listing capacity
+    const listing = await Listing.findById(id);
+    if (guests > listing.capacity) { // Assume `capacity` is a field in your Listing model
+        req.flash("error", `The number of guests cannot exceed the maximum capacity of ${listing.capacity}.`);
+        return res.redirect(`/listings/${id}/book`);
+    }
+
+    // Create a booking object
+    const booking = new Booking({
+        listing: id,
+        checkIn,
+        checkOut,
+        guests,
+        user: req.user ? req.user._id : null, // If logged in, associate the user
+        name: req.user ? null : name, // Use the name from the form if not logged in
+        email: req.user ? null : email, // Use the email from the form if not logged in
+        phone: req.user ? null : phone // Use the phone from the form if not logged in
+    });
+
+    // Save the booking (this should ideally happen after payment confirmation)
+    await booking.save();
+
+    req.flash("success", "Booking confirmed!");
+    res.redirect(`/listings/${id}`);
 };
 

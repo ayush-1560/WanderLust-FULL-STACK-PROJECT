@@ -1,57 +1,62 @@
 <link rel="stylesheet" href="/css/navbar.css">
 
 <nav class="navbar navbar-expand-md border-bottom sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
 
-    <!-- Toggle Button for Mobile View -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+        <!-- Toggle Button for Mobile View -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav me-auto"> <!-- Aligns items to the left -->
-        <a class="nav-link" href="/listings">Explore</a>
-      </div>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav me-auto"> <!-- Aligns items to the left -->
+                <a class="nav-link" href="/listings">Explore</a>
+            </div>
 
-      <!-- Centered Search Box -->
-      <div class="navbar-nav center-search">
-        <form class="d-flex" role="search" method="GET" action="/listings/search">
-          <input class="form-control me-2 search-inp" type="text" placeholder="Search destination" name="q" required>
-          <button class="btn btn-primary btn-search" type="submit">Search</button>
-        </form>
-      </div>
+            <!-- Centered Search Box -->
+            <div class="navbar-nav center-search">
+                <form class="d-flex" role="search" method="GET" action="/listings/search">
+                    <input class="form-control me-2 search-inp" type="text" placeholder="Search destination" name="q" required>
+                    <button class="btn btn-primary btn-search" type="submit">Search</button>
+                </form>
+            </div>
 
-      <!-- Button to Open Sidebar -->
-      <div class="navbar-nav ms-auto">
-        <button class="open-btn" onclick="toggleSidebar()">Menu</button>
-      </div>
+            <!-- Button to Open Sidebar -->
+            <div class="navbar-nav ms-auto">
+                <button class="open-btn" onclick="toggleSidebar()">Menu</button>
+                <% if (currUser) { %> <!-- Check if user is logged in -->
+                    <span class="navbar-text ms-2">
+                        Welcome, <strong><%= currUser.username %></strong> <!-- Display user name -->
+                    </span>
+                <% } %>
+            </div>
+        </div>
     </div>
-  </div>
 </nav>
 
 <!-- Sidebar -->
 <div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
-  <a href="/listings/new">Add Your Listing</a>
-  <% if (!currUser) { %>
-    <a href="/users/Signup">Sign Up</a>
-    <a href="/users/login">Login</a>
-  <% } %>
-  <% if (currUser) { %>
-    <a href="/users/logout">Log Out</a>
-  <% } %>
+    <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
+    <a href="/listings/new">Add Your Listing</a>
+    <% if (!currUser) { %>
+        <a href="/users/Signup">Sign Up</a>
+        <a href="/users/login">Login</a>
+    <% } %>
+    <% if (currUser) { %>
+        <a href="/users/logout">Log Out</a>
+    <% } %>
 </div>
 
 <script>
-  function toggleSidebar() {
-    const sidebar = document.getElementById("mySidebar");
-    sidebar.classList.toggle("open"); // Toggle 'open' class
-  }
+    function toggleSidebar() {
+        const sidebar = document.getElementById("mySidebar");
+        sidebar.classList.toggle("open"); // Toggle 'open' class
+    }
 
-  // Ensure sidebar state is consistent on page load
-  window.onload = function() {
-    const sidebar = document.getElementById("mySidebar");
-    sidebar.classList.remove("open"); // Ensure sidebar is hidden on refresh
-  };
+    // Ensure sidebar state is consistent on page load
+    window.onload = function() {
+        const sidebar = document.getElementById("mySidebar");
+        sidebar.classList.remove("open"); // Ensure sidebar is hidden on refresh
+    };
 </script>

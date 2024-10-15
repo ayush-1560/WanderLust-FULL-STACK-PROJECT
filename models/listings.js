@@ -1,35 +1,52 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Review=require("./review.js");
-const { string } = require("joi");
+
 const listingSchema = new Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  description: String,
-  image: {
-      url: String,
-      filename: String,
+    title: {
+        type: String,
+        required: true,
     },
-  price: Number,
-  location: String,
-  country: String,
-  reviews: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Review",
+    description: String,
+    image: {
+        url: String,
+        filename: String,
     },
-  ],
-  owner:{
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
+    price: Number,
+    location: String,
+    country: String,
+    category: { // New field for category
+        type: String,
+        enum: [
+            'Trending',
+            'Rooms',
+            'Iconic Cities',
+            'Lakes',
+            'Castles',
+            'Beaches',
+            'Camping',
+            'Farms',
+            'Arctic',
+            'Domes',
+            'Boats',
+        ],
+        required: true
+    },
+    reviews: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Review",
+        },
+    ],
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+    },
+    capacity: { // Add capacity attribute
+        type: Number,
+        // required: true, // Ensure capacity is required
+        min: 1 // Minimum value for capacity
+      },    
 });
-listingSchema.post("findOneAndDelete",async(listing)=>{
-  if(listing){
-    await Review.deleteMany({_id: {$in: listing.reviews}});
-  }
-});
+
 const Listing = mongoose.model("Listing", listingSchema);
 module.exports = Listing;

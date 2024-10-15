@@ -1,0 +1,38 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-5">
+    <h2>Your Bookings</h2>
+
+    <% if (bookings.length === 0) { %>
+        <p>No bookings found. Check your booking process.</p>
+    <% } else { %>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Listing</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Guests</th>
+                    <th>Total Amount (INR)</th> <!-- Added Total Amount header -->
+                    <th>Actions</th> <!-- Add Actions header -->
+                </tr>
+            </thead>
+            <tbody>
+                <% for (const booking of bookings) { %>
+                    <tr>
+                        <td><%= booking.listing.title %></td>
+                        <td><%= booking.checkIn.toLocaleDateString() %></td>
+                        <td><%= booking.checkOut.toLocaleDateString() %></td>
+                        <td><%= booking.guests %></td>
+                        <td>&#8377;<%= booking.amountPaid.toLocaleString("en-IN") %></td> <!-- Display Total Amount -->
+                        <td>
+                            <form method="POST" action="/bookings/<%= booking._id %>?_method=DELETE">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    <% } %>
+</div>

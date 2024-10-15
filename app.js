@@ -7,7 +7,6 @@ const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
-const MONGO_URL = "mongodb://127.0.0.1:27017/WanderLust";
 const db_url=process.env.DB_url;
 const ejsMate = require("ejs-mate");
 const ExpressError=require("./utils/ExpressError.js");
@@ -18,8 +17,11 @@ const userRouter=require("./routes/user.js");
 const flash=require("connect-flash");
 const passport=require("passport");
 const LocalStrategy=require("passport-local");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User=require("./models/user.js");
 const MongoStore = require('connect-mongo');
+const paymentRoutes = require('./routes/payments.js');
+const bookingRoutes = require('./routes/bookings');
 
 main()
     .then(() => {
@@ -67,8 +69,44 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "https://wanderlust-full-stack-project-73fa.onrender.com/users/auth/google/callback",  // Redirect URL
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    try {
+      let user = await User.findOne({ googleId: profile.id });
+
+      if (!user) {
+        // If user doesn't exist, create a new user with Google details
+        user = new User({
+          googleId: profile.id,
+          email: profile.emails[0].value,
+        });
+        await user.save();
+      }
+      return done(null, user);
+    } catch (err) {
+      return done(err, false);
+    }
+  }
+));
+
+
+passport.serializeUser((user, done) => {
+    done(null, user.id); // Store user ID in session
+});
+
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await User.findById(id); // Find user by ID
+        done(null, user); // Pass the user object to the next middleware
+    } catch (err) {
+        done(err); // Handle errors
+    }
+});
 
 app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
@@ -80,6 +118,8 @@ app.use((req,res,next)=>{
 app.use("/listings",listingRouter);
 app.use("/listings/:id/reviews",reviewRouter);
 app.use("/users",userRouter);
+app.use('/payments', paymentRoutes);
+app.use('/bookings', bookingRoutes);
 app.all("*",(req,res,next)=>{
     next (new ExpressError(404,"Page not Found"));
 });

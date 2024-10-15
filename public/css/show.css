@@ -1,154 +1,63 @@
-/* General body styling */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
-  }
-  
-  /* Card for listing */
-  .listing-card {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: none;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .listing-card:hover {
-    transform: translateY(-10px);
-  }
-  
-  /* Image styling */
-  .show-img {
-    border-radius: 10px 10px 0 0;
-    height: 300px;
-    object-fit: cover;
-    width: 100%;
-  }
-  
-  /* Card body */
-  .card-body {
-    padding: 1.5rem;
-  }
-  
-  .card-body p {
-    margin-bottom: 0.8rem;
-  }
-  
-  /* Title styling */
-  h3 {
-    font-size: 2rem;
-    margin-bottom: 1.2rem;
-    text-align: center;
-    font-weight: 700;
-    color: #2c3e50;
-  }
-  
-  /* Buttons */
-  .btn {
-    font-size: 1rem;
-    padding: 0.6rem 1.2rem;
-    border-radius: 5px;
-  }
-  
-  .edit-btn {
-    background-color: #3498db;
-    border-color: #3498db;
-  }
-  
-  .edit-btn:hover {
-    background-color: #2980b9;
-    border-color: #2980b9;
-  }
-  
-  .btn-dark {
-    background-color: #2c3e50;
-    border-color: #2c3e50;
-  }
-  
-  .btn-dark:hover {
-    background-color: #1a242f;
-    border-color: #1a242f;
-  }
-  
-  .btn-outline-dark {
-    border-color: #2c3e50;
-    color: #2c3e50;
-  }
-  
-  .btn-outline-dark:hover {
-    background-color: #2c3e50;
-    color: #fff;
-  }
-  
-  /* Review section */
-  h4 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #34495e;
-    margin-bottom: 1rem;
-  }
-  
-  /* Star rating */
-  .starability-slot {
-    margin-bottom: 1rem;
-  }
-  
-  .starability-result:before {
-    content: '★★★★★';
-    letter-spacing: 3px;
-    background: linear-gradient(90deg, #f39c12 calc(var(--rating) / 5 * 100%), #ccc calc(var(--rating) / 5 * 100%));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .input-no-rate {
-    display: none;
-  }
-  
-  /* Review textarea */
-  textarea {
-    margin-bottom: 1.5rem;
-  }
-  
-  /* Review cards */
-  .review-card {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1.5rem;
-  }
-  
-  .review-card h5 {
-    color: #2980b9;
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .review-card p {
-    font-size: 1rem;
-  }
-  
-  /* Form feedback */
-  .invalid-feedback {
-    color: #e74c3c;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .card {
-      width: 100%;
-    }
-  
-    .col-8, .col-6 {
-      width: 100%;
-      margin-left: 0;
-    }
-  
-    .btn {
-      width: 100%;
-      margin-top: 10px;
-    }
-  }
-  
+/* Content Section Styling */
+.content-section {
+  border: 2px solid #e0e0e0;  /* Light gray border */
+  border-radius: 10px;         /* Rounded corners */
+  background-color: #f9f9f9;   /* Light background for contrast */
+  padding: 20px;               /* Padding inside the box */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Book Now Button */
+.btn-book-now {
+  background-color: #fe424d;
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-book-now:hover {
+  background-color: #fe212d;
+  color: #fff;
+}
+
+/* Edit Button */
+.btn-edit {
+  background-color: #28a745;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.btn-edit:hover {
+  background-color: #218838;
+  color: #fff;
+}
+
+/* Delete Button */
+.btn-delete {
+  background-color: #dc3545;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+  color: #fff;
+}
+
+/* Reviews Card Styling */
+.review-card {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* Overall Styling */
+.show-card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}

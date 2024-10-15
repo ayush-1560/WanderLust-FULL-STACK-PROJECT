@@ -1,0 +1,70 @@
+<% layout("/layouts/boilerplate") %>
+<link rel="stylesheet" href="/css/book.css">
+
+<div class="container mt-5">
+    <h2>Book <%= listing.title %></h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>" style="object-fit: cover; height: 300px;">
+                <div class="card-body">
+                    <h5 class="card-title"><%= listing.title %></h5>
+                    <p class="card-text"><b>Location:</b> <%= listing.location %></p>
+                    <p class="card-text">&#8377;<%= listing.price.toLocaleString("en-IN") %> per night</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h4>Booking Details</h4>
+            <form id="booking-form" action="/payments/create-checkout-session" method="POST" >
+                <input type="hidden" name="listingId" value="<%= listing._id %>">
+                
+                <div class="mb-3">
+                    <label for="checkIn" class="form-label">Check-in Date</label>
+                    <input type="date" class="form-control" id="checkIn" name="checkIn" required>
+                </div>
+                <div class="mb-3">
+                    <label for="checkOut" class="form-label">Check-out Date</label>
+                    <input type="date" class="form-control" id="checkOut" name="checkOut" required>
+                </div>
+                <div class="mb-3">
+                    <label for="guests" class="form-label">Number of Guests</label>
+                    <input type="number" class="form-control" id="guests" name="guests" min="1" required>
+                </div>
+
+                <% if (!currUser) { %>
+                    <div class="alert alert-warning">
+                        You are not logged in. Please provide your contact details to confirm the booking.
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required>
+                    </div>
+                <% } else { %>
+                    <p>You are logged in as <strong><%= currUser.username %></strong></p>
+                <% } %>
+
+                <button type="submit" class="btn btn-dark btn-lg">Pay and Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+// Set today's date as the minimum for check-in and check-out
+document.addEventListener('DOMContentLoaded', () => {
+    const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+    document.getElementById('checkIn').setAttribute('min', today);
+    document.getElementById('checkOut').setAttribute('min', today);
+});
+</script>
