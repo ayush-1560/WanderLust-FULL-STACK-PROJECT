@@ -73,7 +73,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://wanderlust-full-stack-project-73fa.onrender.com/users/auth/google/callback",  // Redirect URL
+    callbackURL: `${process.env.BASE_URL}/users/auth/google/callback`,  // Redirect URL
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
