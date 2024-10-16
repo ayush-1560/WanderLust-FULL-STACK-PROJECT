@@ -1,10 +1,10 @@
 /* Content Section Styling */
 .content-section {
-  border: 2px solid #e0e0e0;  /* Light gray border */
-  border-radius: 10px;         /* Rounded corners */
-  background-color: #f9f9f9;   /* Light background for contrast */
-  padding: 20px;               /* Padding inside the box */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Book Now Button */
@@ -49,6 +49,21 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 1.5rem;
+}
+
+/* Black Star Styling for Reviews */
+.review-stars {
+  display: inline-block;
+}
+
+.review-stars i.fa-star {
+  font-size: 14px; /* Small size for stars */
+  color: #e0e0e0; /* Unfilled stars are gray */
+}
+
+.review-stars i.filled {
+  color: black; /* Filled stars are black */
+  margin-right: 2px;
 }
 
 .card-body {

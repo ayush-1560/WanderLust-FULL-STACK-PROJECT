@@ -56,7 +56,6 @@
             <div class="mb-3">
                 <label for="rating" class="form-label">Rating</label>
                 <fieldset class="starability-slot">
-                    <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
                     <input type="radio" id="first-rate1" name="review[rating]" value="1" />
                     <label for="first-rate1" title="Terrible">1 star</label>
                     <input type="radio" id="first-rate2" name="review[rating]" value="2" />
@@ -86,10 +85,15 @@
         <div class="row">
             <% for(let review of listing.reviews) { %>
             <div class="col-md-6 mb-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm review-card">
                     <div class="card-body">
                         <h5 class="card-title">@<%=review.author.username%></h5>
-                        <p class="starability-result" data-rating=<%=review.rating%>></p>
+                        <!-- Black star ratings -->
+                        <div class="review-stars" data-rating="<%= review.rating %>">
+                            <% for(let i = 1; i <= 5; i++) { %>
+                                <i class="fa fa-star <%= i <= review.rating ? 'filled' : '' %>"></i>
+                            <% } %>
+                        </div>
                         <p class="card-text"><%=review.comment%></p>
 
                         <% if(currUser && currUser._id.equals(review.author._id)) { %>
