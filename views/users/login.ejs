@@ -2,6 +2,10 @@
 <div class="row mt-3">
     <h1 class="col-6 offset-3">Login</h1>
     <div class="col-6 offset-3">
+        
+        
+        
+        <!-- Login Form -->
         <form action="/users/login" method="POST" class="needs-validation" novalidate>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
@@ -19,5 +23,13 @@
 
         <h3 class="mt-4">Or Login with:</h3>
         <a href="/users/auth/google" class="btn btn-danger">Google</a>
+
+        <!-- Signup Prompt Section -->
+        <div class="mt-4">
+            <!-- Use Bootstrap default text styling -->
+            <p class="fw-bold fs-4">New to WanderLust? Kindly sign up first please.</p>
+            <!-- Make the button style consistent with the login button -->
+            <a href="/users/signup" class="btn btn-success">Sign Up</a>
+        </div>
     </div>
 </div>

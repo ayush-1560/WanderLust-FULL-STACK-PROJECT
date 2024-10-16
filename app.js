@@ -77,22 +77,26 @@ passport.use(new GoogleStrategy({
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
+      // Find the user by Google ID
       let user = await User.findOne({ googleId: profile.id });
-
+      
       if (!user) {
-        // If user doesn't exist, create a new user with Google details
+        // If the user doesn't exist, create a new user
         user = new User({
           googleId: profile.id,
           email: profile.emails[0].value,
+          username: profile.displayName || `user_${profile.id}`, // Generate a unique username if it doesn't exist
         });
         await user.save();
       }
+      
       return done(null, user);
     } catch (err) {
       return done(err, false);
     }
   }
 ));
+
 
 
 passport.serializeUser((user, done) => {
