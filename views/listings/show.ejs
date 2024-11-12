@@ -108,4 +108,20 @@
         </div>
         <% } %>
     </div>
+    <div class="col-8 offset-3 mb-3">
+        <h3>Where You'll Be</h3>
+        <div id="map"></div>
+    </div>
 </div>
+
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoiYXl1c2gtMTU2MCIsImEiOiJjbTJ3d2xhZGwwMmxiMmtzajdxOGVmOXk1In0.BzjB3WBbo-3EQ0PiLNW6RA';
+    const map = new mapboxgl.Map({
+        container: 'map', // container ID
+        center: [77.2088,28.6139], // starting position [lng, lat]. Note that lat must be set between -90 and 90
+        zoom: 9 // starting zoom
+    });
+    const marker=new mapboxgl.Marker({color: "red"})
+    .setLngLat([77.2088,28.6139])
+    .addTo(map);
+</script>

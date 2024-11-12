@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-md border-bottom sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
+        <a class="navbar-brand" href="/"><i class="fa-regular fa-compass"></i></a>
 
         <!-- Toggle Button for Mobile View -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,24 +10,36 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav me-auto"> <!-- Aligns items to the left -->
+            <div class="navbar-nav me-auto">
                 <a class="nav-link" href="/listings">Explore</a>
             </div>
 
-            <!-- Centered Search Box -->
+            <!-- Centered Search Box with Datalist -->
             <div class="navbar-nav center-search">
-                <form class="d-flex" role="search" method="GET" action="/listings/search">
-                    <input class="form-control me-2 search-inp" type="text" placeholder="Search destination" name="q" required>
-                    <button class="btn btn-primary btn-search" type="submit">Search</button>
+                <form class="d-flex" role="search" id="search-form">
+                    <input list="categories" class="form-control me-2 search-inp" type="text" placeholder="Search destination" id="search-input" required>
+                    <datalist id="categories">
+                        <option value="Trending">
+                        <option value="Rooms">
+                        <option value="Iconic Cities">
+                        <option value="Lakes">
+                        <option value="Castles">
+                        <option value="Camping">
+                        <option value="Farms">
+                        <option value="Arctic">
+                        <option value="Domes">
+                        <option value="Boats">
+                    </datalist>
+                    <button class="btn btn-primary btn-search" type="button" onclick="redirectToCategory()">Search</button>
                 </form>
             </div>
 
             <!-- Button to Open Sidebar -->
             <div class="navbar-nav ms-auto">
                 <button class="open-btn" onclick="toggleSidebar()">Menu</button>
-                <% if (currUser) { %> <!-- Check if user is logged in -->
+                <% if (currUser) { %>
                     <span class="navbar-text ms-2">
-                        Welcome, <strong><%= currUser.username %></strong> <!-- Display user name -->
+                        Welcome, <strong><%= currUser.username %></strong>
                     </span>
                 <% } %>
             </div>
@@ -52,12 +64,24 @@
 <script>
     function toggleSidebar() {
         const sidebar = document.getElementById("mySidebar");
-        sidebar.classList.toggle("open"); // Toggle 'open' class
+        sidebar.classList.toggle("open");
     }
 
     // Ensure sidebar state is consistent on page load
     window.onload = function() {
         const sidebar = document.getElementById("mySidebar");
-        sidebar.classList.remove("open"); // Ensure sidebar is hidden on refresh
+        sidebar.classList.remove("open");
     };
+
+    // Redirect to the category page when a category is selected
+    function redirectToCategory() {
+        const selectedCategory = document.getElementById("search-input").value;
+        const categories = ["Trending", "Rooms", "Iconic Cities", "Lakes", "Castles", "Camping", "Farms", "Arctic", "Domes", "Boats"];
+        
+        if (categories.includes(selectedCategory)) {
+            window.location.href = `/listings?category=${encodeURIComponent(selectedCategory)}`;
+        } else {
+            document.getElementById("search-form").submit(); // Submit form for non-category text search
+        }
+    }
 </script>

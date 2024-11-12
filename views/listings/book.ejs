@@ -11,7 +11,11 @@
                 <div class="card-body">
                     <h5 class="card-title"><%= listing.title %></h5>
                     <p class="card-text"><b>Location:</b> <%= listing.location %></p>
-                    <p class="card-text">&#8377;<%= listing.price.toLocaleString("en-IN") %> per night</p>
+                    <% 
+                    const gstRate = 0.18; 
+                    const priceWithGST = listing.price * (1 + gstRate);
+                    %>
+                    <p class="card-text">&#8377;<%= priceWithGST.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %> per night (including 18% GST)</p>
                 </div>
             </div>
         </div>

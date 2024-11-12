@@ -45,7 +45,18 @@ const listingSchema = new Schema({
         type: Number,
         // required: true, // Ensure capacity is required
         min: 1 // Minimum value for capacity
-      },    
+      },
+    geometry:{
+        type:{
+            type: String,
+            enum: ["Point"],
+            required: true,
+        },
+        coordinates: {
+            type: [Number],
+            required: true,
+        },
+    }      
 });
 
 const Listing = mongoose.model("Listing", listingSchema);

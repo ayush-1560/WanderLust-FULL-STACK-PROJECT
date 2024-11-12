@@ -1,0 +1,59 @@
+<% layout("/layouts/boilerplate") %>
+<link rel="stylesheet" href="/css/landing.css">
+<body>
+    <header class="hero-section">
+        <h1>Welcome to WanderLust</h1>
+        <p>Your gateway to finding the perfect accommodations.</p>
+    </header>
+
+    <div class="hero-button-container">
+        <a href="/listings" class="btn btn-primary btn-explore">Explore Listings</a>
+    </div>
+
+    <section class="about-section">
+        <h2>About Us</h2>
+        <p>WanderLust is designed to help travelers find unique and comfortable accommodations, from city apartments to remote cottages.</p>
+    </section>
+
+    <section class="features-section">
+        <div class="feature">
+            <i class="fa fa-globe"></i>
+            <h3>Worldwide Listings</h3>
+            <p>Find places to stay across the globe.</p>
+        </div>
+        <div class="feature">
+            <i class="fa fa-bed"></i>
+            <h3>Comfort & Convenience</h3>
+            <p>We prioritize comfort, quality, and location.</p>
+        </div>
+        <div class="feature">
+            <i class="fa fa-heart"></i>
+            <h3>Memorable Experiences</h3>
+            <p>Stay at unique places that make memories.</p>
+        </div>
+    </section>
+
+    <footer class="landing-footer">
+        <p>&copy; 2024 WanderLust | All Rights Reserved</p>
+    </footer>
+</body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const features = document.querySelectorAll('.feature');
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+                observer.unobserve(entry.target); // Stop observing after it fades in
+            }
+        });
+    });
+
+    features.forEach(feature => {
+        observer.observe(feature);
+    });
+});
+</script>

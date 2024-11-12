@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@mapbox/mapbox-sdk": "^0.16.1",
     "buffer-crc32": "^1.0.0",
     "cloudinary": "^1.21.0",
     "connect-flash": "^0.1.1",

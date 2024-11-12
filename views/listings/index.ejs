@@ -80,9 +80,9 @@
           <div class="card-img-overlay"></div>
           <div class="card-body">
             <p class="card-text">
-             <b><%=listing.title %> </b><br>
-              &#8377; <%=listing.price.toLocaleString("en-IN") %>/night
-              <i class="tax-info">&nbsp; &nbsp;+18%GST</i>
+              <b><%=listing.title %> </b><br>
+              <span class="price">&#8377; <%=listing.price.toLocaleString("en-IN") %>/night</span>
+              <span class="total-price" style="display: none;">&#8377; <%= (listing.price * 1.18).toLocaleString("en-IN") %>/night (incl. 18% GST)</span>
             </p>
           </div>
         </div>
@@ -92,10 +92,16 @@
 
 <script>
   let taxSwitch = document.getElementById("flexSwitchCheckDefault");
-  taxSwitch.addEventListener("click", () => {
-    let taxInfo = document.getElementsByClassName("tax-info");
-    for (info of taxInfo) {
-      info.style.display = (info.style.display === "none" || info.style.display === "") ? "inline" : "none";
+  taxSwitch.addEventListener("change", () => {
+    let priceElements = document.querySelectorAll(".price");
+    let totalPriceElements = document.querySelectorAll(".total-price");
+
+    if (taxSwitch.checked) {
+      priceElements.forEach(price => price.style.display = "none"); // Hide original price
+      totalPriceElements.forEach(total => total.style.display = "inline"); // Show total price
+    } else {
+      priceElements.forEach(price => price.style.display = "inline"); // Show original price
+      totalPriceElements.forEach(total => total.style.display = "none"); // Hide total price
     }
   });
 </script>

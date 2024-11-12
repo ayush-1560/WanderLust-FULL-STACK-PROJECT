@@ -1,82 +1,94 @@
+/* Navbar Styles */
 .navbar {
-    background-color: #ffffff; /* Set a background color for the navbar */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-  }
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-  .btn-search {
-    background-color: #fe424d;
-    color: white;
-    border-radius: 25px;
-    padding: 0.5rem 1rem; /* Increased padding for better appearance */
-    transition: background-color 0.3s ease; /* Smooth transition */
-  }
+/* Search Button */
+.btn-search {
+  background-color: #fe424d;
+  color: white;
+  border-radius: 25px;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
+}
 
-  .btn-search:hover {
-    background-color: #fe212d; /* Darker shade on hover */
-  }
+.btn-search:hover {
+  background-color: #fe212d;
+  transform: translateY(-2px); /* Lift effect on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Shadow effect on hover */
+}
 
-  .btn-search i {
-    margin-right: 0.5rem;
-  }
+.btn-search i {
+  margin-right: 0.5rem;
+}
 
-  .search-inp {
-    border-radius: 25px;
-    padding: 0.5rem 1rem; /* Consistent padding */
-    font-size: 1rem;
-    border: 1px solid #ced4da; /* Add border for input */
-    transition: border-color 0.3s ease; /* Smooth transition */
-  }
+/* Search Input */
+.search-inp {
+  border-radius: 25px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ced4da;
+  transition: border-color 0.3s ease, box-shadow 0.2s ease;
+}
 
-  .search-inp:focus {
-    border-color: #fe424d; /* Change border color on focus */
-    box-shadow: 0 0 0 0.2rem rgba(254, 66, 77, 0.25); /* Add shadow on focus */
-    outline: none; /* Remove outline */
-  }
+.search-inp:focus {
+  border-color: #fe424d;
+  box-shadow: 0 0 0 0.2rem rgba(254, 66, 77, 0.25);
+  outline: none;
+}
 
-  /* Sidebar Styles */
-  .sidebar {
-    height: 100%;
-    width: 250px; /* Adjust width as needed */
-    position: fixed; /* Fixed sidebar */
-    z-index: 1000; /* Sit on top */
-    top: 0; /* Stay at the top */
-    left: -250px; /* Hide sidebar offscreen */
-    background-color: #f8f9fa; /* Light background color */
-    transition: 0.3s; /* Transition for smooth opening */
-    padding-top: 60px; /* Space from top */
-  }
+/* Sidebar Styles */
+.sidebar {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  right: -250px;
+  background-color: #f8f9fa;
+  transition: 0.3s;
+  padding-top: 60px;
+}
 
-  .sidebar.open {
-    left: 0; /* Show sidebar */
-  }
+.sidebar.open {
+  right: 0;
+}
 
-  .sidebar a {
-    padding: 10px 15px; /* Padding for items */
-    text-decoration: none; /* No underline */
-    font-size: 18px; /* Font size */
-    color: black; /* Text color */
-    display: block; /* Block display */
-  }
+/* Sidebar Links */
+.sidebar a {
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
 
-  .sidebar a:hover {
-    background-color: #ddd; /* Background on hover */
-  }
+.sidebar a:hover {
+  background-color: #ddd;
+  transform: translateX(2px); /* Slight slide effect on hover */
+}
 
-  .open-btn {
-    font-size: 16px; /* Button font size */
-    cursor: pointer; /* Pointer cursor */
-    background-color: #fe424d; /* Button color */
-    color: white; /* Button text color */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    padding: 10px 15px; /* Padding for button */
-  }
+/* Menu Button Styles */
+.open-btn {
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #fe424d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-  .open-btn:hover {
-    background-color: #fe212d; /* Darker on hover */
-  }
+.open-btn:hover {
+  background-color: #fe212d;
+  transform: translateY(-2px); /* Lift effect on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
 
-  /* Center the search form */
-  .navbar-nav.center-search {
-    margin: 0 auto; /* Centering */
-  }
+/* Center the Search Form */
+.navbar-nav.center-search {
+  margin: 0 auto;
+}

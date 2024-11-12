@@ -1,10 +1,11 @@
-/* Content Section Styling */
-.content-section {
-  border: 2px solid #e0e0e0;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* General Button Hover Effect */
+button, .btn-book-now, .btn-edit, .btn-delete {
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover, .btn-book-now:hover, .btn-edit:hover, .btn-delete:hover {
+  transform: translateY(-2px); /* Slight lift on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increased shadow */
 }
 
 /* Book Now Button */
@@ -12,36 +13,39 @@
   background-color: #fe424d;
   color: #fff;
   border: none;
-  transition: background-color 0.3s ease;
 }
 
 .btn-book-now:hover {
   background-color: #fe212d;
-  color: #fff;
 }
 
 /* Edit Button */
 .btn-edit {
   background-color: #28a745;
   color: #fff;
-  transition: background-color 0.3s ease;
 }
 
 .btn-edit:hover {
   background-color: #218838;
-  color: #fff;
 }
 
 /* Delete Button */
 .btn-delete {
   background-color: #dc3545;
   color: #fff;
-  transition: background-color 0.3s ease;
 }
 
 .btn-delete:hover {
   background-color: #c82333;
-  color: #fff;
+}
+
+/* Content Section Styling */
+.content-section {
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Reviews Card Styling */
@@ -70,9 +74,14 @@
   padding: 1.5rem;
 }
 
-/* Overall Styling */
+/* Overall Card Styling */
 .show-card {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#map{
+  height: 400px;
+  width: 80vh;
 }

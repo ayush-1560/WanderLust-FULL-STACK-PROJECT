@@ -1,3 +1,17 @@
+/* Listing Card Hover Effect */
+.listing-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px; /* Rounded corners for smoothness */
+    overflow: hidden;
+}
+
+.listing-card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increased shadow for depth */
+    background-color: rgba(250, 250, 250, 0.9); /* Light background color change */
+}
+
+/* Existing Filter Styles */
 .filters-main {
     display: flex;
     width: 100%;
@@ -8,41 +22,42 @@
 #filters {
     display: flex;
     width: 100%;
-    overflow-x: auto; /* Allow horizontal scrolling if needed */
+    overflow-x: auto;
     align-items: center;
     height: 90px;
     position: relative;
-    margin: 10px 0; /* Adjusted margin for top and bottom spacing */
-    padding: 0 10px; /* Added padding to the left and right */
+    margin: 10px 0;
+    padding: 0 10px;
 }
 
 #filters > .filter {
-    margin: 0 1rem; /* Added horizontal margin between filters */
-    text-align: center; /* Center text for better alignment */
+    margin: 0 1rem;
+    text-align: center;
 }
 
-#filters > .filter > a { /* Make sure the links cover the entire filter area */
-    text-decoration: none; /* Remove underline from links */
-    color: inherit; /* Make link color inherit from parent */
+#filters > .filter > a {
+    text-decoration: none;
+    color: inherit;
 }
 
 #filters > .filter > div {
-    font-size: 1.5rem; /* Increased icon size for better visibility */
-    margin-bottom: 5px; /* Space between icon and text */
+    font-size: 1.5rem;
+    margin-bottom: 5px;
 }
 
 @media (max-width: 768px) {
     #filters > .filter {
-        margin: 0 0.75rem; /* Adjust margin for smaller screens */
+        margin: 0 0.75rem;
     }
 }
 
 @media (max-width: 425px) {
     #filters > .filter {
-        margin: 0 0.5rem; /* Further adjustment for very small screens */
+        margin: 0 0.5rem;
     }
 }
 
+/* Tax Toggle Styling */
 .tax-toggle {
     border: 0.5px solid rgba(128, 128, 128, 0.5);
     border-radius: 12px;
@@ -55,15 +70,15 @@
     justify-content: center;
     background-color: rgb(255, 255, 255);
     font-weight: 500;
-    margin-left: auto; /* Align tax toggle to the right */
-    margin-top: 10px; /* Add spacing from filters */
+    margin-left: auto;
+    margin-top: 10px;
 }
 
 .tax-toggle:hover {
     border: 1px solid black;
 }
 
-/* Keep existing styles for other classes */
+/* Filter and Tax Info */
 .filter {
     text-align: center;
     opacity: 0.6;
@@ -83,33 +98,48 @@
 }
 
 .tax-info {
+    display: inline;
+    margin-left: 5px;
+}
+
+.price {
+    display: inline;
+}
+
+.total-price {
     display: none;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.total-price, .price {
+    transition: opacity 0.3s ease;
 }
 
 .tax-filter-icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto; /* Center icons */
+    margin: 0 auto;
 }
 
 .filter > p {
-    white-space: nowrap; /* Prevent text wrapping */
+    white-space: nowrap;
     font-weight: 600;
-    font-size: 0.9rem; /* Slightly larger font size for better readability */
+    font-size: 0.9rem;
     color: black;
-    margin: 0; /* Remove default margin */
+    margin: 0;
 }
 
-/* Additional Responsive Styles */
+/* Responsive Styles */
 @media (max-width: 767px) {
     .tax-toggle {
         display: block;
         position: sticky;
         top: calc(8rem - 0.5px);
         z-index: 15;
-        margin: 10px auto; /* Center tax toggle */
-        padding: 0.6rem; /* Padding for tax toggle */
+        margin: 10px auto;
+        padding: 0.6rem;
         border: 0.5px solid rgba(128, 128, 128, 0.703);
     }
     .tax-filter {
